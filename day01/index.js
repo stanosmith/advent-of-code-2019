@@ -13,11 +13,16 @@ getInput()
   .then(res => {
     const totalFuelRequired = res
       .split("\n")
-      .map(mass => Math.floor(mass / 3) - 2)
+      .map(getFuelRequirement)
       .reduce((totalFuel, fuelRequired) => {
         totalFuel = totalFuel + fuelRequired;
         return totalFuel;
       }, 0);
+
+    function getFuelRequirement(mass) {
+      return Math.floor(mass / 3) - 2;
+    }
+
     console.log(`The total fuel required is ${totalFuelRequired}`);
     console.log("Merry Christmas! 🎄");
   })
