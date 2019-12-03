@@ -11,19 +11,28 @@ async function getInput() {
 
 getInput()
   .then(res => {
-    const totalFuelRequired = res
-      .split("\n")
+    const moduleMasses = res.split("\n");
+    const totalFuelRequired = moduleMasses
       .map(getFuelRequirement)
       .reduce((totalFuel, fuelRequired) => {
         totalFuel = totalFuel + fuelRequired;
         return totalFuel;
       }, 0);
 
+    const totalFuelRequiredPartTwo = moduleMasses.map(mass => {
+      const ogFuelReq = getFuelRequirement(mass);
+      let nextFuelReq = getFuelRequirement(ogFuelReq);
+      if (ogFuelReq > 0 && nextFuelReq > 0) {
+
+      }
+    });
+
     function getFuelRequirement(mass) {
       return Math.floor(mass / 3) - 2;
     }
 
     console.log(`The total fuel required is ${totalFuelRequired}`);
+    console.log(`The total fuel required (part two) is ${totalFuelRequiredPartTwo}`);
     console.log("Merry Christmas! 🎄");
   })
   .catch(err => console.error(err));
