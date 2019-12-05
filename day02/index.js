@@ -11,12 +11,11 @@ async function getInput() {
 getInput()
   .then(res => {
     let integersList = res.split(',').map(value => parseInt(value));
-    console.log(JSON.stringify(integersList, null, 2));
+    // console.log(JSON.stringify(integersList, null, 2));
     // Restore gravity assist program
     integersList[1] = 12;
     integersList[2] = 2;
 
-    // Opcodes are (groups of 4) indexes 0-3, 4-7, 8-11, etc.
     integersList.forEach((integer, index) => {
       const isPositionZero = index % 4 === 0;
       // console.log(isPositionZero);
@@ -36,7 +35,7 @@ getInput()
           }
           integersList[indexOutput] = result;
           console.log(`Position zero value: ${integersList[0]}`);
-          console.log(JSON.stringify(integersList, null, 2));
+          // console.log(JSON.stringify(integersList, null, 2));
         }
       }
     });
