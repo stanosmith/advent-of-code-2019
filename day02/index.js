@@ -10,7 +10,11 @@ async function getInput() {
 
 getInput()
   .then(res => {
-    const integersList = res.split(',').map(value => parseInt(value));
+    let integersList = res.split(',').map(value => parseInt(value));
+    console.log(JSON.stringify(integersList, null, 2));
+    // Restore gravity assist program
+    integersList[1] = 12;
+    integersList[2] = 2;
 
     // Opcodes are (groups of 4) indexes 0-3, 4-7, 8-11, etc.
     integersList.forEach((integer, index) => {
@@ -20,22 +24,24 @@ getInput()
         // Position Zero - (1) Add, (2) Multiply, (99) End
         console.log(integer);
         if (integer !== 99 && integer !== 0) {
-          const inputOne = integersList[index + 1];
-          const inputTwo = integersList[index + 2];
-          const outputIndex = integersList[index + 3];
+          const indexInputOne = integersList[index + 1];
+          const indexInputTwo = integersList[index + 2];
+          const indexOutput = integersList[index + 3];
           let result = 0;
-          console.log(inputOne, inputTwo, outputIndex);
+          console.log(indexInputOne, indexInputTwo, indexOutput);
           if (integer === 1) {
-            result = inputOne + inputTwo;
+            result = integersList[indexInputOne] + integersList[indexInputTwo];
           } else if (integer === 2) {
-            result = inputOne * inputTwo;
+            result = integersList[indexInputOne] * integersList[indexInputTwo];
           }
-          integersList[outputIndex] = result;
+          integersList[indexOutput] = result;
+          console.log(`Position zero value: ${integersList[0]}`);
+          console.log(JSON.stringify(integersList, null, 2));
         }
       }
     });
     // console.log(JSON.stringify(integersList, null, 2));
-    console.log(integersList[0]);
+    console.log(`Position zero value: ${integersList[0]}`);
     console.log('Merry Christmas! 🎄');
   })
   .catch(err => console.error(err));
