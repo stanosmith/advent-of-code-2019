@@ -15,6 +15,7 @@ getInput()
     // Restore gravity assist program
     integersList[1] = 12;
     integersList[2] = 2;
+    let instructionPointer = 0;
 
     integersList.forEach((integer, index) => {
       const isPositionZero = index % 4 === 0;
@@ -36,6 +37,9 @@ getInput()
           integersList[indexOutput] = result;
           console.log(`Position zero value: ${integersList[0]}`);
           // console.log(JSON.stringify(integersList, null, 2));
+
+          instructionPointer += 4;
+          console.log(`instructionPointer: ${instructionPointer}`);
         }
       }
     });
