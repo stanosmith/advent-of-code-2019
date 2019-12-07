@@ -4,6 +4,7 @@
   "description": "https://adventofcode.com/2019",
   "main": "index.js",
   "scripts": {
+    "start": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://gitlab.com/stanosmith/advent-of-code-2019/issues"
   },
-  "homepage": "https://gitlab.com/stanosmith/advent-of-code-2019#readme"
+  "homepage": "https://gitlab.com/stanosmith/advent-of-code-2019#readme",
+  "dependencies": {
+    "two.js": "^0.7.0-beta.3"
+  }
 }
