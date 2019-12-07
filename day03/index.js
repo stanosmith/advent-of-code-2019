@@ -1,6 +1,6 @@
 // https://adventofcode.com/2019/day/2
 const fs = require('fs').promises;
-const inputPath = "./input.txt";
+const inputPath = "./input.txt"; // The answer was 248
 // const inputPath = './test-input.txt';
 
 async function getInput() {

@@ -623,7 +623,9 @@ const two = new Two({
 const startingX = width / 2;
 const startingY = height / 2;
 
-drawGrid({ width, height });
+// drawGrid({ size: 10, color: 'green', width, height });
+// drawGrid({ size: 50, color: 'red', width, height });
+// The answer is 248!
 
 // Draw a circle for the starting point
 let circle = two.makeCircle(startingX, startingY, 8);
@@ -637,6 +639,7 @@ wires.forEach((wire, index) => {
   let lastY = startingY;
 
   // Set the line color
+  const color = index === 0 ? '#673ab7' : '#faec43';
 
   wire.forEach(measurement => {
     const direction = measurement.substring(0, 1).toLowerCase();
@@ -645,20 +648,40 @@ wires.forEach((wire, index) => {
 
     switch (direction) {
       case 'r':
-        lastX = drawLine({ lastX, lastY, newX: lastX + length, newY: lastY })
-          .newX;
+        lastX = drawLine({
+          color,
+          lastX,
+          lastY,
+          newX: lastX + length,
+          newY: lastY,
+        }).newX;
         break;
       case 'l':
-        lastX = drawLine({ lastX, lastY, newX: lastX - length, newY: lastY })
-          .newX;
+        lastX = drawLine({
+          color,
+          lastX,
+          lastY,
+          newX: lastX - length,
+          newY: lastY,
+        }).newX;
         break;
       case 'd':
-        lastY = drawLine({ lastX, lastY, newX: lastX, newY: lastY + length })
-          .newY;
+        lastY = drawLine({
+          color,
+          lastX,
+          lastY,
+          newX: lastX,
+          newY: lastY + length,
+        }).newY;
         break;
       case 'u':
-        lastY = drawLine({ lastX, lastY, newX: lastX, newY: lastY - length })
-          .newY;
+        lastY = drawLine({
+          color,
+          lastX,
+          lastY,
+          newX: lastX,
+          newY: lastY - length,
+        }).newY;
         break;
     }
 
@@ -668,16 +691,15 @@ wires.forEach((wire, index) => {
   });
 });
 
-function drawGrid({ width, height }) {
-  const size = 10;
+function drawGrid({ size, color, width, height }) {
   const numCols = width / size;
   const numRows = height / size;
   console.log(JSON.stringify({ numCols, numRows }));
-  drawGridLine(size, numCols, 'vertical');
-  drawGridLine(size, numRows, 'horizontal');
+  drawGridLine(size, color, numCols, 'vertical');
+  drawGridLine(size, color, numRows, 'horizontal');
 }
 
-function drawGridLine(size, lines, direction) {
+function drawGridLine(size, color, lines, direction) {
   for (let i = 0; i < lines; i++) {
     let line = undefined;
     if (direction === 'vertical') {
@@ -687,16 +709,15 @@ function drawGridLine(size, lines, direction) {
       const colY = size * i;
       line = two.makeLine(0, colY, width, colY);
     }
-    line.stroke = '#282828';
+    line.stroke = color;
     line.linewidth = 1;
     line.opacity = 0.3;
   }
-
 }
 
-function drawLine({ lastX, lastY, newX, newY }) {
+function drawLine({ lastX, lastY, newX, newY, color }) {
   let line = two.makeLine(lastX, lastY, newX, newY);
-  line.stroke = '#53329A';
+  line.stroke = color;
   line.linewidth = 1;
   return { newX, newY };
 }
