@@ -623,8 +623,8 @@ const two = new Two({
 const startingX = width / 2;
 const startingY = height / 2;
 
-// drawGrid({ size: 10, color: 'green', width, height });
-// drawGrid({ size: 50, color: 'red', width, height });
+drawGrid({ size: 10, color: 'green', width, height });
+drawGrid({ size: 50, color: 'red', width, height });
 // The answer is 248!
 
 // Draw a circle for the starting point
