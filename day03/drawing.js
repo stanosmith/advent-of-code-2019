@@ -611,8 +611,8 @@ const wires = [
     'R322',
   ],
 ];
-const width = 3000;
-const height = 3000;
+const width = window.innerWidth;
+const height = window.innerHeight;
 const elem = document.getElementById('the-canvas');
 const two = new Two({
   width,
@@ -623,14 +623,15 @@ const two = new Two({
 const startingX = width / 2;
 const startingY = height / 2;
 
-drawGrid({ size: 10, color: 'green', width, height });
-drawGrid({ size: 50, color: 'red', width, height });
+// drawGrid({ size: 10, color: 'green', width, height });
+// drawGrid({ size: 50, color: 'red', width, height });
 // The answer is 248!
 
 // Draw a circle for the starting point
-let circle = two.makeCircle(startingX, startingY, 8);
-circle.stroke = '#b78846';
-circle.fill = 'transparent';
+let circle = two.makeCircle(startingX, startingY, 16);
+circle.stroke = '#02a9dd';
+circle.linewidth = 4;
+circle.noFill();
 
 // Draw the wire paths
 wires.forEach((wire, index) => {
@@ -641,60 +642,42 @@ wires.forEach((wire, index) => {
   // Set the line color
   const color = index === 0 ? '#673ab7' : '#faec43';
 
-  wire.forEach(measurement => {
+  let vertices = wire.map(measurement => {
     const direction = measurement.substring(0, 1).toLowerCase();
     const length = parseInt(measurement.substring(1));
     // console.log({ direction, length });
 
     switch (direction) {
       case 'r':
-        lastX = drawLine({
-          color,
-          lastX,
-          lastY,
-          newX: lastX + length,
-          newY: lastY,
-        }).newX;
+        lastX = lastX + length;
         break;
       case 'l':
-        lastX = drawLine({
-          color,
-          lastX,
-          lastY,
-          newX: lastX - length,
-          newY: lastY,
-        }).newX;
+        lastX = lastX - length;
         break;
       case 'd':
-        lastY = drawLine({
-          color,
-          lastX,
-          lastY,
-          newX: lastX,
-          newY: lastY + length,
-        }).newY;
+        lastY = lastY + length;
         break;
       case 'u':
-        lastY = drawLine({
-          color,
-          lastX,
-          lastY,
-          newX: lastX,
-          newY: lastY - length,
-        }).newY;
+        lastY = lastY - length;
         break;
     }
-
-    // console.log([lastX, lastY, length, lastY]);
-
-    // TODO: Set a new lastX and lastY
+    return new Two.Anchor(lastX, lastY);
   });
+
+  // prepend the first anchor
+  vertices = [new Two.Anchor(startingX, startingY), ...vertices];
+
+  let path = two.makePath(vertices);
+  path.linewidth = 4;
+  path.stroke = color;
+  path.closed = false;
+  path.noFill();
 });
 
 function drawGrid({ size, color, width, height }) {
   const numCols = width / size;
   const numRows = height / size;
-  console.log(JSON.stringify({ numCols, numRows }));
+  // console.log(JSON.stringify({ numCols, numRows }));
   drawGridLine(size, color, numCols, 'vertical');
   drawGridLine(size, color, numRows, 'horizontal');
 }
@@ -718,7 +701,7 @@ function drawGridLine(size, color, lines, direction) {
 function drawLine({ lastX, lastY, newX, newY, color }) {
   let line = two.makeLine(lastX, lastY, newX, newY);
   line.stroke = color;
-  line.linewidth = 1;
+  line.linewidth = 10;
   return { newX, newY };
 }
 
