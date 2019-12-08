@@ -640,7 +640,7 @@ wires.forEach((wire, index) => {
   let lastY = startingY;
 
   // Set the line color
-  const color = index === 0 ? '#673ab7' : '#faec43';
+  const color = index === 0 ? '#7a30ff' : '#faec43';
 
   let vertices = wire.map(measurement => {
     const direction = measurement.substring(0, 1).toLowerCase();
