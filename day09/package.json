@@ -1,0 +1,19 @@
+{
+  "name": "day09",
+  "version": "1.0.0",
+  "description": "https://adventofcode.com/2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/stanosmith/advent-of-code-2019.git"
+  },
+  "author": "@stanosmith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/stanosmith/advent-of-code-2019/issues"
+  },
+  "homepage": "https://gitlab.com/stanosmith/advent-of-code-2019#readme"
+}
